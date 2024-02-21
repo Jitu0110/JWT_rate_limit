@@ -15,7 +15,7 @@ public class RedisRateLimiter {
 
 
     private final RedisTemplate<String, String> redisTemplate;
-    private final static int MAX_REQUESTS_PER_HOUR = 3;
+    private final static int MAX_REQUESTS_PER_MIN = 3;
 
     public boolean isLimitExceeded(String email) {
         ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
@@ -28,7 +28,7 @@ public class RedisRateLimiter {
         }
 
         int requests = Integer.parseInt(currentRequests);
-        if (requests >= MAX_REQUESTS_PER_HOUR) {
+        if (requests >= MAX_REQUESTS_PER_MIN) {
             return true;
         }
 
